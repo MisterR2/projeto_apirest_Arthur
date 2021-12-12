@@ -9,9 +9,9 @@ class Produto extends RestController{
     public function __construct(){
         parent::__construct();
         $this->load->model('ProdutoModel');
-        //$this->load->model('GrupoModel');
-        //$this->load->model('FornecedorModel');
-        //$this->load->model('FabricanteModel');
+        // $this->load->model('GrupoModel');
+        // $this->load->model('FornecedorModel');
+        // $this->load->model('FabricanteModel');
     }
 
     public function index_get($id=NULL){
@@ -44,7 +44,16 @@ class Produto extends RestController{
     }
 
     public function index_put($id){
+        $produto = $this->put("produto");
+        $preco = $this->put("preco");
+        $qtd = $this->put("qtd");
+        $codfabricante = $this->put("codfabricante");
+        $codgrupo = $this->put("codgrupo");
 
+        $this->ProdutoModel->atualizar($id, $produto, $preco, $qtd, $codfabricante, $codgrupo);
+        $resultado["status"]=true;
+        $resultado["mensagem"]="Dados atualizados com sucesso!";
+        $this->response($resultado, RestController::HTTP_OK);
     }
 
     public function index_delete($id){
